@@ -6,11 +6,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Go 1.17
-      uses: actions/setup-go@v1
-      with:
-        go-version: 1.17
-      id: go
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
     - name: Get Next Tag
@@ -29,7 +24,7 @@ jobs:
         echo "Go version: $version" >> temp.txt
         echo "Next Tag version: $TBAC_VERSION" >> temp.txt
         cat temp.txt
-        sed -i 's/$version/$TBAC_VERSION/' cmd/root.go
+        sed -i 's/1.0.3/1.0.4/' cmd/root.go
         cat cmd/root.go
         version_1=$(cat cmd/root.go |grep version|tr -d \"|awk -F ' ' '{print $NF}')
         echo "printing again" >> temp.txt
