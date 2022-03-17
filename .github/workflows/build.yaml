@@ -24,29 +24,24 @@ jobs:
       env:
        TBAC_VERSION: ${{ steps.tag_version.outputs.semantic-version }}
       run: |
-        cat cmd/root.go > cmd/temp.go
-        version=$(cat cmd/temp.go |grep version|tr -d \"|awk -F ' ' '{print $NF}')
+        version=$(cat cmd/root.go |grep version|tr -d \"|awk -F ' ' '{print $NF}')
         echo "Printing versions" > temp.txt
-        echo $version >> temp.txt
-        echo $TBAC_VERSION >> temp.txt
+        echo "Go version: $version" >> temp.txt
+        echo "Next Tag version: $TBAC_VERSION" >> temp.txt
         cat temp.txt
-        sed -i 's/$version/$TBAC_VERSION/' cmd/temp.go
-        cat cmd/temp.go
-        version_1=$(cat cmd/temp.go |grep version|tr -d \"|awk -F ' ' '{print $NF}')
-        echo "printing again" >> temp.txt
-        echo $version_1 >> temp.txt
-        cat temp.txt
-        cat cmd/temp.go
-        rm -rf cmd/root.go
-        ls -ltr
-        cat cmd/temp.go > cmd/root.go
+        sed -i 's/$version/$TBAC_VERSION/' cmd/root.go
         cat cmd/root.go
-        pwd
-        ls -ltr
+        version_1=$(cat cmd/root.go |grep version|tr -d \"|awk -F ' ' '{print $NF}')
+        echo "printing again" >> temp.txt
+        echo "Go version: $version_1" >> temp.txt
+        cat temp.txt
+        git status
+        git diff cmd/root.go
+        ls -ltr cmd
+        
     - name: Get dependencies
       run: |
-        cat cmd/root.go
         version_2=$(cat cmd/root.go |grep version|tr -d \"|awk -F ' ' '{print $NF}')
         echo "printing final" >> temp.txt
-        echo $version_2 >> temp.txt
+        echo "Go version: $version_2" >> temp.txt
         cat temp.txt
