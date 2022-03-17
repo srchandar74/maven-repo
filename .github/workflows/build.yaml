@@ -24,7 +24,7 @@ jobs:
         echo "Go version: $version" >> temp.txt
         echo "Next Tag version: $TBAC_VERSION" >> temp.txt
         cat temp.txt
-        sed -i 's/${{ versions }}/${{ TBAC_VERSION }}/' cmd/root.go
+        sed -i 's/${{ version }}/${{ TBAC_VERSION }}/' cmd/root.go
         version_1=$(cat cmd/root.go |grep version|tr -d \"|awk -F ' ' '{print $NF}')
         echo "printing again" >> temp.txt
         echo "Go version: $version_1" >> temp.txt
