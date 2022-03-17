@@ -24,15 +24,14 @@ jobs:
         echo "Go version: $version" >> temp.txt
         echo "Next Tag version: $TBAC_VERSION" >> temp.txt
         cat temp.txt
-        sed -i 's/1.0.3/1.0.4/' cmd/root.go
-        cat cmd/root.go
+        sed -i 's/${{ versions }}/${{ TBAC_VERSION }}/' cmd/root.go
         version_1=$(cat cmd/root.go |grep version|tr -d \"|awk -F ' ' '{print $NF}')
         echo "printing again" >> temp.txt
         echo "Go version: $version_1" >> temp.txt
         cat temp.txt
         git status
         git diff cmd/root.go
-        ls -ltr cmd
+  
         
     - name: Get dependencies
       run: |
