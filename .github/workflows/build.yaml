@@ -31,7 +31,6 @@ jobs:
         cat temp.txt
         git status
         git diff cmd/root.go
-      shell: bash
   
         
     - name: Get dependencies
