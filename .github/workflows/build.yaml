@@ -6,8 +6,6 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: Check out code into the Go module directory
-      uses: actions/checkout@v2
     - name: Get Next Tag
       id: tag_version
       uses: SOLIDSoftworks/semver-tags@1.0.1
@@ -15,6 +13,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
         tag-prefix: 'v'
         dry-run: true
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v2
     - name: Update Tbac Version
       env:
        TBAC_VERSION: ${{ steps.tag_version.outputs.semantic-version }}
